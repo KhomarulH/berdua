@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Khomarul ❤️ Hanfara — Our Little Universe</title>
-  <meta name="description" content="Cerita cinta Khomarul Hidayat & Hanfara Lovisya. Dua hati, satu cerita, dan banyak kenangan yang tertulis bersama sejak 22 Agustus 2026.">
-  <meta name="theme-color" content="#08070d">
+  <title>Khomarul ❤️ Hanfara — Our Eternal Universe</title>
+  <meta name="description" content="Cerita cinta Khomarul Hidayat & Hanfara Lovisya. Dua hati, satu cerita, dan ribuan kenangan indah yang tertulis bersama sejak 22 Agustus 2026.">
+  <meta name="theme-color" content="#06070d">
 
   <!-- Favicon Heart Emoji -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
 
-  <!-- Google Fonts: Playfair Display (Serif Elegan) & Poppins (Modern Sans) -->
+  <!-- Google Fonts: Playfair Display (Serif), Poppins (Clean Sans), & Dancing Script (Handwritten Love Letter) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet Utama -->
   <link rel="stylesheet" href="style.css">
@@ -21,39 +21,60 @@
 <body>
 
   <!-- ==========================================
-       CANVAS BACKGROUND (Bintang & Partikel Halus)
+       CANVAS BACKGROUND (Bintang, Meteor & Debu Galaksi)
        ========================================== -->
   <canvas id="stars-canvas" aria-hidden="true"></canvas>
 
-  <!-- Wadah untuk Hati Melayang (Floating Hearts) -->
+  <!-- Aurora / Cosmic Glow Mesh -->
+  <div class="cosmic-aura aura-1" aria-hidden="true"></div>
+  <div class="cosmic-aura aura-2" aria-hidden="true"></div>
+  <div class="cosmic-aura aura-3" aria-hidden="true"></div>
+
+  <!-- Wadah untuk Hati Melayang (Floating Ambient Hearts) -->
   <div id="floating-hearts-container" aria-hidden="true"></div>
 
+  <!-- Cursor Sparkle Glow (Desktop) -->
+  <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
+
   <!-- ==========================================
-       OPENING SCREEN / INTRO POPUP
-       (Layar pembuka sebelum masuk website utama)
+       OPENING SCREEN / INTRO POPUP (PREMIUM EDITION)
        ========================================== -->
   <div id="opening-screen" class="opening-screen">
+    <div class="opening-backdrop-blur"></div>
     <div class="opening-content">
-      <div class="opening-badge">✨ WELCOME TO ✨</div>
-      <h1 class="opening-title">Our Little Universe</h1>
-      
-      <!-- ==========================================
-           [EDIT DI SINI]: Nama Anda & Pasangan
-           ========================================== -->
-      <div class="opening-names">
-        <span>Khomarul</span>
-        <span class="heartbeat-icon">❤️</span>
-        <span>Hanfara</span>
+      <div class="opening-sparkle-badge">
+        <span class="sparkle-dot">✦</span>
+        <span>A SPECIAL PLACE FOR US</span>
+        <span class="sparkle-dot">✦</span>
       </div>
 
-      <p class="opening-subtext">Sebuah ruang kecil untuk cerita, rasa, dan kenangan kita.</p>
+      <h1 class="opening-title">Our Little Universe</h1>
+      
+      <!-- [EDIT DI SINI]: Nama Pasangan -->
+      <div class="opening-names">
+        <span class="name-highlight">Khomarul</span>
+        <div class="infinity-heart">
+          <span class="heartbeat-icon">❤️</span>
+        </div>
+        <span class="name-highlight">Hanfara</span>
+      </div>
 
-      <!-- Tombol Masuk -->
-      <button id="btn-enter" class="btn-primary glow-effect">
-        <span class="btn-icon">💌</span>
-        <span class="btn-text">Open Our Story</span>
-        <span class="btn-sparkle">✨</span>
-      </button>
+      <p class="opening-subtext">
+        Sebuah ruang kecil yang diciptakan untuk mengabadikan setiap detik, rasa, dan cerita cinta kita.
+      </p>
+
+      <div class="opening-actions">
+        <button id="btn-enter" class="btn-glow-primary">
+          <span class="btn-ripple"></span>
+          <span class="btn-icon">💌</span>
+          <span class="btn-text">Open Our Story</span>
+          <span class="btn-arrow">✨</span>
+        </button>
+      </div>
+
+      <div class="opening-music-hint">
+        <span>🎧 Rekomendasi: Gunakan earphone untuk pengalaman terbaik</span>
+      </div>
     </div>
   </div>
 
@@ -64,48 +85,55 @@
 
     <!-- HERO SECTION -->
     <header id="hero" class="hero-section">
-      <div class="hero-decor glow-circle-1" aria-hidden="true"></div>
-      <div class="hero-decor glow-circle-2" aria-hidden="true"></div>
-
       <div class="container hero-container">
-        <div class="hero-tag">
-          <span class="star-icon">✦</span>
-          <span>OUR LITTLE UNIVERSE</span>
-          <span class="star-icon">✦</span>
+        
+        <!-- Status Badge -->
+        <div class="hero-badge-pill">
+          <span class="live-dot"></span>
+          <span class="badge-text">ETERNAL LOVE &bull; EST. 22 AGUSTUS 2026</span>
         </div>
 
-        <!-- ==========================================
-             [EDIT DI SINI]: Nama Besar Pasangan
-             ========================================== -->
+        <!-- Judul Besar Pasangan -->
         <h1 class="hero-title">
-          <span class="name-part">Khomarul</span>
-          <span class="hero-heart heartbeat-icon" title="Cinta">❤️</span>
-          <span class="name-part">Hanfara</span>
+          <span class="name-gradient">Khomarul</span>
+          <span class="hero-center-heart heartbeat-icon" title="Cinta Sejati">💖</span>
+          <span class="name-gradient">Hanfara</span>
         </h1>
 
-        <div class="hero-full-names">
+        <div class="hero-subtitle-names">
           Khomarul Hidayat &amp; Hanfara Lovisya
         </div>
 
-        <!-- ==========================================
-             [EDIT DI SINI]: Tanggal Mulai Hubungan
-             ========================================== -->
-        <div class="hero-date-badge">
+        <!-- Tanggal Awal Hubungan -->
+        <div class="hero-date-card glass-glow">
           <span class="date-icon">🗓️</span>
-          <span class="date-text">22 AGUSTUS 2026</span>
+          <span class="date-label">Memulai Cerita Bersama:</span>
+          <strong class="date-value">22 Agustus 2026</strong>
         </div>
 
         <!-- Kutipan Romantis -->
         <blockquote class="hero-quote">
-          “Dua hati, satu cerita, dan banyak kenangan yang masih ingin kita tulis bersama.”
+          <span class="quote-mark open">“</span>
+          Dua hati, satu cerita, dan banyak kenangan yang masih ingin kita tulis bersama.
+          <span class="quote-mark close">”</span>
         </blockquote>
 
-        <!-- Tombol Scroll ke Bawah -->
-        <a href="#our-story" class="btn-scroll-down" id="btn-scroll-down">
-          <span>Mulai Cerita Kita</span>
-          <span class="arrow-down">↓</span>
-        </a>
+        <!-- Tombol Aksi Hero -->
+        <div class="hero-buttons">
+          <a href="#our-story" class="btn-pill-primary">
+            <span>Mulai Cerita Kita</span>
+            <span class="btn-arrow-down">↓</span>
+          </a>
+          <button id="hero-music-btn" class="btn-pill-glass">
+            <span class="hero-music-icon">🎵</span>
+            <span id="hero-music-text">Putar Lagu Kita</span>
+          </button>
+        </div>
+
       </div>
+
+      <!-- Wave Separator Bawah Hero -->
+      <div class="hero-bottom-fade"></div>
     </header>
 
     <main>
@@ -115,177 +143,254 @@
       <section id="our-story" class="section story-section">
         <div class="container">
           <div class="section-header">
-            <span class="section-num">01 — OUR STORY</span>
-            <h2 class="section-title">Hari ketika cerita kita dimulai.</h2>
-            <div class="section-divider">
-              <span class="line"></span>
-              <span class="heartbeat-icon divider-heart">❤️</span>
-              <span class="line"></span>
+            <span class="section-tag">01 &mdash; OUR STORY</span>
+            <h2 class="section-title">Hari Ketika Cerita Kita Dimulai</h2>
+            <div class="section-ornament">
+              <span class="ornament-line"></span>
+              <span class="heartbeat-icon ornament-heart">❤️</span>
+              <span class="ornament-line"></span>
             </div>
           </div>
 
-          <div class="story-card glass-card">
-            <!-- [EDIT DI SINI]: Tanggal pada kartu cerita -->
-            <div class="story-date-tag">
-              <span class="calendar-mini">✨</span>
-              <span>22 Agustus 2026</span>
-            </div>
+          <div class="story-card-wrapper">
+            <div class="story-card glass-card-premium">
+              <div class="card-glow-edge"></div>
 
-            <!-- [EDIT DI SINI]: Isi teks narasi cerita -->
-            <p class="story-paragraph">
-              Semua cerita punya awal. Dan cerita kita dimulai pada <strong>22 Agustus 2026</strong>.
-              Semoga ini menjadi awal dari banyak tawa, cerita, perjalanan, dan kenangan indah yang akan kita buat bersama.
-            </p>
+              <!-- Tanggal Cerita -->
+              <div class="story-date-badge">
+                <span class="calendar-sparkle">✨</span>
+                <span>22 Agustus 2026</span>
+              </div>
 
-            <div class="story-signature">
-              <span class="heartbeat-icon signature-heart">💖</span>
-              <span class="signature-text">Every love story is beautiful, but ours is my favorite.</span>
+              <!-- Narasi Cerita -->
+              <p class="story-paragraph">
+                Semua cerita indah di dunia ini selalu punya awal. Dan cerita kita dimulai pada <strong>22 Agustus 2026</strong>.
+                Hari di mana dua hati memutuskan untuk saling memilih, berjalan beriringan, dan saling mengisi setiap hari dengan tawa, ketenangan, serta kasih sayang tanpa henti.
+              </p>
+
+              <p class="story-subparagraph">
+                Semoga ini menjadi awal dari banyak perjalanan indah, mimpi-mimpi yang terwujud bersama, dan jutaan kenangan manis yang akan kita ceritakan hingga tua nanti.
+              </p>
+
+              <div class="story-signature-box">
+                <span class="signature-quote">“Every love story is beautiful, but ours is my favorite.”</span>
+                <span class="signature-author">— Khomarul untuk Hanfara 🌸</span>
+              </div>
             </div>
           </div>
 
           <!-- ==========================================
-               RELATIONSHIP COUNTER
-               (Menghitung otomatis secara realtime dari tanggal mulai)
+               RELATIONSHIP COUNTER (LIVE TICKING)
                ========================================== -->
-          <div class="counter-wrapper">
-            <h3 class="counter-heading">
-              <span class="counter-sparkle">⏳</span>
-              We've been together for...
-            </h3>
+          <div class="counter-box">
+            <div class="counter-heading-wrap">
+              <span class="counter-pulse-icon">⏳</span>
+              <h3 class="counter-title">We've been together for...</h3>
+            </div>
 
             <div class="counter-grid">
-              <div class="counter-item glass-card">
-                <span class="counter-value" id="days">0</span>
-                <span class="counter-label">Days</span>
+              <div class="counter-card glass-card">
+                <div class="counter-inner">
+                  <span class="counter-number" id="days">0</span>
+                  <span class="counter-unit">Days</span>
+                  <span class="counter-sub-desc">Hari Penuh Cerita</span>
+                </div>
               </div>
-              <div class="counter-item glass-card">
-                <span class="counter-value" id="hours">0</span>
-                <span class="counter-label">Hours</span>
+              <div class="counter-card glass-card">
+                <div class="counter-inner">
+                  <span class="counter-number" id="hours">0</span>
+                  <span class="counter-unit">Hours</span>
+                  <span class="counter-sub-desc">Jam Saling Merindu</span>
+                </div>
               </div>
-              <div class="counter-item glass-card">
-                <span class="counter-value" id="minutes">0</span>
-                <span class="counter-label">Minutes</span>
+              <div class="counter-card glass-card">
+                <div class="counter-inner">
+                  <span class="counter-number" id="minutes">0</span>
+                  <span class="counter-unit">Minutes</span>
+                  <span class="counter-sub-desc">Menit Bahagia</span>
+                </div>
               </div>
-              <div class="counter-item glass-card">
-                <span class="counter-value" id="seconds">0</span>
-                <span class="counter-label">Seconds</span>
+              <div class="counter-card glass-card">
+                <div class="counter-inner">
+                  <span class="counter-number" id="seconds">0</span>
+                  <span class="counter-unit">Seconds</span>
+                  <span class="counter-sub-desc">Detik Berharga</span>
+                </div>
               </div>
             </div>
 
-            <p class="counter-footnote">
-              ...dan setiap detiknya begitu berharga bersamamu.
+            <p class="counter-caption">
+              ...dan setiap detik yang berlalu terasa begitu istimewa saat dijalani bersamamu. ✨
             </p>
           </div>
+
+          <!-- ==========================================
+               FITUR SPESIAL: LOVE REASONS GENERATOR
+               (Fitur interaktif klik untuk membaca alasan cinta)
+               ========================================== -->
+          <div class="love-reasons-container">
+            <div class="reasons-card glass-card-premium" id="reasons-card">
+              <div class="reasons-badge">💌 REASONS WHY I LOVE YOU</div>
+              <h4 class="reasons-heading">Alasan Kenapa Aku Selalu Sayang Kamu</h4>
+              
+              <div class="reasons-display-box">
+                <p class="reasons-text" id="reasons-text">
+                  “Senyuman manismu selalu berhasil membuat hari yang lelah terasa tenang dan penuh harapan.”
+                </p>
+                <span class="reasons-number" id="reasons-number">Alasan #1</span>
+              </div>
+
+              <button id="btn-next-reason" class="btn-pill-subtle">
+                <span>Lihat Alasan Lainnya ✨</span>
+              </button>
+            </div>
+          </div>
+
         </div>
       </section>
 
       <!-- ==========================================
-           02 — OUR MOMENTS (Foto Galeri Romantis)
+           02 — OUR MOMENTS (GALERI FOTO INTERAKTIF)
            ========================================== -->
       <section id="our-moments" class="section moments-section">
         <div class="container">
           <div class="section-header">
-            <span class="section-num">02 — OUR MOMENTS</span>
+            <span class="section-tag">02 &mdash; OUR MOMENTS</span>
             <h2 class="section-title">Galeri Kenangan Kita</h2>
-            <p class="section-subtitle">Setiap senyuman, tatapan, dan detik indah yang terekam selamanya.</p>
-            <div class="section-divider">
-              <span class="line"></span>
-              <span class="heartbeat-icon divider-heart">🌸</span>
-              <span class="line"></span>
+            <p class="section-subtitle">Setiap senyuman, tatapan, dan detik indah yang terekam abadi.</p>
+            <div class="section-ornament">
+              <span class="ornament-line"></span>
+              <span class="heartbeat-icon ornament-heart">🌸</span>
+              <span class="ornament-line"></span>
             </div>
           </div>
 
           <!--
             =============================================================
             [PANDUAN MENGGANTI FOTO]:
-            Cukup letakkan foto Anda di dalam folder: images/
-            Dengan nama: photo1.jpg, photo2.jpg, dst.
-            Anda juga dapat mengubah teks caption di atribut data-caption.
+            File foto asli Anda tersimpan di folder images/photo1.jpeg s.d photo6.jpeg.
+            Anda dapat menyesuaikan teks caption di atribut data-caption dan data-sub!
             =============================================================
           -->
-          <div class="gallery-grid">
+          <div class="gallery-grid" id="gallery-grid">
 
             <!-- Foto 1 -->
-            <div class="gallery-card glass-card" data-index="0" data-caption="A little moment" data-sub="Momen kecil yang membawa bahagia besar">
+            <div class="gallery-card glass-card tilt-card" data-index="0" data-caption="A little moment" data-sub="Momen kecil yang membawa bahagia besar tak terhingga.">
               <div class="image-wrapper">
-                <img src="images/photo1.jpeg" alt="A little moment" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'750\' viewBox=\'0 0 600 750\'><rect fill=\'%231a0b2e\' width=\'600\' height=\'750\'/><circle cx=\'300\' cy=\'350\' r=\'120\' fill=\'%23ff85a1\' opacity=\'0.25\'/><text x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'%23ff85a1\' font-family=\'sans-serif\' font-size=\'42\'>💖</text><text x=\'50%25\' y=\'58%25\' text-anchor=\'middle\' fill=\'%23fecdd3\' font-family=\'sans-serif\' font-size=\'20\'>A little moment</text></svg>';">
+                <img src="images/photo1.jpeg" alt="A little moment" loading="lazy" onerror="this.onerror=null; this.src='images/photo1.jpg';">
                 <div class="card-overlay">
-                  <span class="view-btn">Lihat Foto 🔍</span>
+                  <span class="view-pill">🔍 Perbesar Foto</span>
                 </div>
               </div>
-              <div class="card-info">
-                <h4 class="card-caption">A little moment</h4>
-                <span class="card-tag">Moment #1</span>
+              <div class="card-meta">
+                <div class="card-text-group">
+                  <h4 class="card-caption">A little moment</h4>
+                  <p class="card-sub-info">Momen kecil kita</p>
+                </div>
+                <button class="btn-like-photo" aria-label="Suka foto ini" title="Beri cinta">
+                  <span class="like-heart">🤍</span>
+                  <span class="like-count">1</span>
+                </button>
               </div>
             </div>
 
             <!-- Foto 2 -->
-            <div class="gallery-card glass-card" data-index="1" data-caption="Our favorite day" data-sub="Hari favorit yang penuh tawa dan senyuman">
+            <div class="gallery-card glass-card tilt-card" data-index="1" data-caption="Our favorite day" data-sub="Hari favorit saat tawa kita saling bersahutan tanpa henti.">
               <div class="image-wrapper">
-                <img src="images/photo2.jpeg" alt="Our favorite day" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'750\' viewBox=\'0 0 600 750\'><rect fill=\'%232d0c27\' width=\'600\' height=\'750\'/><circle cx=\'300\' cy=\'350\' r=\'120\' fill=\'%23f472b6\' opacity=\'0.25\'/><text x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'%23f472b6\' font-family=\'sans-serif\' font-size=\'42\'>🌸</text><text x=\'50%25\' y=\'58%25\' text-anchor=\'middle\' fill=\'%23fecdd3\' font-family=\'sans-serif\' font-size=\'20\'>Our favorite day</text></svg>';">
+                <img src="images/photo2.jpeg" alt="Our favorite day" loading="lazy" onerror="this.onerror=null; this.src='images/photo2.jpg';">
                 <div class="card-overlay">
-                  <span class="view-btn">Lihat Foto 🔍</span>
+                  <span class="view-pill">🔍 Perbesar Foto</span>
                 </div>
               </div>
-              <div class="card-info">
-                <h4 class="card-caption">Our favorite day</h4>
-                <span class="card-tag">Moment #2</span>
+              <div class="card-meta">
+                <div class="card-text-group">
+                  <h4 class="card-caption">Our favorite day</h4>
+                  <p class="card-sub-info">Hari terindah</p>
+                </div>
+                <button class="btn-like-photo" aria-label="Suka foto ini" title="Beri cinta">
+                  <span class="like-heart">🤍</span>
+                  <span class="like-count">1</span>
+                </button>
               </div>
             </div>
 
             <!-- Foto 3 -->
-            <div class="gallery-card glass-card" data-index="2" data-caption="Just us" data-sub="Hanya ada kamu, aku, dan ketenangan dunia">
+            <div class="gallery-card glass-card tilt-card" data-index="2" data-caption="Just us" data-sub="Hanya ada kamu, aku, dan indahnya dunia berdua.">
               <div class="image-wrapper">
-                <img src="images/photo3.jpeg" alt="Just us" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'750\' viewBox=\'0 0 600 750\'><rect fill=\'%23140e33\' width=\'600\' height=\'750\'/><circle cx=\'300\' cy=\'350\' r=\'120\' fill=\'%23c084fc\' opacity=\'0.25\'/><text x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'%23c084fc\' font-family=\'sans-serif\' font-size=\'42\'>💑</text><text x=\'50%25\' y=\'58%25\' text-anchor=\'middle\' fill=\'%23fecdd3\' font-family=\'sans-serif\' font-size=\'20\'>Just us</text></svg>';">
+                <img src="images/photo3.jpeg" alt="Just us" loading="lazy" onerror="this.onerror=null; this.src='images/photo3.jpg';">
                 <div class="card-overlay">
-                  <span class="view-btn">Lihat Foto 🔍</span>
+                  <span class="view-pill">🔍 Perbesar Foto</span>
                 </div>
               </div>
-              <div class="card-info">
-                <h4 class="card-caption">Just us</h4>
-                <span class="card-tag">Moment #3</span>
+              <div class="card-meta">
+                <div class="card-text-group">
+                  <h4 class="card-caption">Just us</h4>
+                  <p class="card-sub-info">Hanya berdua</p>
+                </div>
+                <button class="btn-like-photo" aria-label="Suka foto ini" title="Beri cinta">
+                  <span class="like-heart">🤍</span>
+                  <span class="like-count">1</span>
+                </button>
               </div>
             </div>
 
             <!-- Foto 4 -->
-            <div class="gallery-card glass-card" data-index="3" data-caption="Another memory" data-sub="Menyimpan jejak manis di setiap langkah kita">
+            <div class="gallery-card glass-card tilt-card" data-index="3" data-caption="Another memory" data-sub="Menyimpan jejak manis di setiap langkah perjalanan kita.">
               <div class="image-wrapper">
-                <img src="images/photo4.jpeg" alt="Another memory" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'750\' viewBox=\'0 0 600 750\'><rect fill=\'%230b1b2b\' width=\'600\' height=\'750\'/><circle cx=\'300\' cy=\'350\' r=\'120\' fill=\'%2338bdf8\' opacity=\'0.25\'/><text x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'%2338bdf8\' font-family=\'sans-serif\' font-size=\'42\'>🌙</text><text x=\'50%25\' y=\'58%25\' text-anchor=\'middle\' fill=\'%23fecdd3\' font-family=\'sans-serif\' font-size=\'20\'>Another memory</text></svg>';">
+                <img src="images/photo4.jpeg" alt="Another memory" loading="lazy" onerror="this.onerror=null; this.src='images/photo4.jpg';">
                 <div class="card-overlay">
-                  <span class="view-btn">Lihat Foto 🔍</span>
+                  <span class="view-pill">🔍 Perbesar Foto</span>
                 </div>
               </div>
-              <div class="card-info">
-                <h4 class="card-caption">Another memory</h4>
-                <span class="card-tag">Moment #4</span>
+              <div class="card-meta">
+                <div class="card-text-group">
+                  <h4 class="card-caption">Another memory</h4>
+                  <p class="card-sub-info">Jejak kenangan</p>
+                </div>
+                <button class="btn-like-photo" aria-label="Suka foto ini" title="Beri cinta">
+                  <span class="like-heart">🤍</span>
+                  <span class="like-count">1</span>
+                </button>
               </div>
             </div>
 
             <!-- Foto 5 -->
-            <div class="gallery-card glass-card" data-index="4" data-caption="Sweetest laughter" data-sub="Tawamu adalah melodi paling indah yang pernah kudengar">
+            <div class="gallery-card glass-card tilt-card" data-index="4" data-caption="Sweetest laughter" data-sub="Tawamu adalah melodi paling menenangkan yang pernah kudengar.">
               <div class="image-wrapper">
-                <img src="images/photo5.jpeg" alt="Sweetest laughter" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'750\' viewBox=\'0 0 600 750\'><rect fill=\'%23281329\' width=\'600\' height=\'750\'/><circle cx=\'300\' cy=\'350\' r=\'120\' fill=\'%23fb7185\' opacity=\'0.25\'/><text x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'%23fb7185\' font-family=\'sans-serif\' font-size=\'42\'>💫</text><text x=\'50%25\' y=\'58%25\' text-anchor=\'middle\' fill=\'%23fecdd3\' font-family=\'sans-serif\' font-size=\'20\'>Sweetest laughter</text></svg>';">
+                <img src="images/photo5.jpeg" alt="Sweetest laughter" loading="lazy" onerror="this.onerror=null; this.src='images/photo5.jpg';">
                 <div class="card-overlay">
-                  <span class="view-btn">Lihat Foto 🔍</span>
+                  <span class="view-pill">🔍 Perbesar Foto</span>
                 </div>
               </div>
-              <div class="card-info">
-                <h4 class="card-caption">Sweetest laughter</h4>
-                <span class="card-tag">Moment #5</span>
+              <div class="card-meta">
+                <div class="card-text-group">
+                  <h4 class="card-caption">Sweetest laughter</h4>
+                  <p class="card-sub-info">Tawa termanis</p>
+                </div>
+                <button class="btn-like-photo" aria-label="Suka foto ini" title="Beri cinta">
+                  <span class="like-heart">🤍</span>
+                  <span class="like-count">1</span>
+                </button>
               </div>
             </div>
 
             <!-- Foto 6 -->
-            <div class="gallery-card glass-card" data-index="5" data-caption="Together forever" data-sub="Berjalan berdampingan menatap masa depan">
+            <div class="gallery-card glass-card tilt-card" data-index="5" data-caption="Together forever" data-sub="Berjalan berdampingan menatap masa depan yang cerah.">
               <div class="image-wrapper">
-                <img src="images/photo6.jpeg" alt="Together forever" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'750\' viewBox=\'0 0 600 750\'><rect fill=\'%23121b2d\' width=\'600\' height=\'750\'/><circle cx=\'300\' cy=\'350\' r=\'120\' fill=\'%23ec4899\' opacity=\'0.25\'/><text x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'%23ec4899\' font-family=\'sans-serif\' font-size=\'42\'>💖</text><text x=\'50%25\' y=\'58%25\' text-anchor=\'middle\' fill=\'%23fecdd3\' font-family=\'sans-serif\' font-size=\'20\'>Together forever</text></svg>';">
+                <img src="images/photo6.jpeg" alt="Together forever" loading="lazy" onerror="this.onerror=null; this.src='images/photo6.jpg';">
                 <div class="card-overlay">
-                  <span class="view-btn">Lihat Foto 🔍</span>
+                  <span class="view-pill">🔍 Perbesar Foto</span>
                 </div>
               </div>
-              <div class="card-info">
-                <h4 class="card-caption">Together forever</h4>
-                <span class="card-tag">Moment #6</span>
+              <div class="card-meta">
+                <div class="card-text-group">
+                  <h4 class="card-caption">Together forever</h4>
+                  <p class="card-sub-info">Selamanya bersama</p>
+                </div>
+                <button class="btn-like-photo" aria-label="Suka foto ini" title="Beri cinta">
+                  <span class="like-heart">🤍</span>
+                  <span class="like-count">1</span>
+                </button>
               </div>
             </div>
 
@@ -294,79 +399,86 @@
       </section>
 
       <!-- ==========================================
-           03 — OUR JOURNEY (Timeline Vertikal)
+           03 — OUR JOURNEY (TIMELINE VERTICAL)
            ========================================== -->
       <section id="our-journey" class="section journey-section">
         <div class="container">
           <div class="section-header">
-            <span class="section-num">03 — OUR JOURNEY</span>
-            <h2 class="section-title">Perjalanan Cerita Kita</h2>
-            <p class="section-subtitle">Setiap langkah dan babak berharga yang kita lalui bersama.</p>
-            <div class="section-divider">
-              <span class="line"></span>
-              <span class="heartbeat-icon divider-heart">✨</span>
-              <span class="line"></span>
+            <span class="section-tag">03 &mdash; OUR JOURNEY</span>
+            <h2 class="section-title">Perjalanan Kisah Kita</h2>
+            <p class="section-subtitle">Setiap tonggak berharga dan babak indah yang kita lewati berdua.</p>
+            <div class="section-ornament">
+              <span class="ornament-line"></span>
+              <span class="heartbeat-icon ornament-heart">✨</span>
+              <span class="ornament-line"></span>
             </div>
           </div>
 
           <div class="timeline-container">
-            <div class="timeline-line"></div>
+            <div class="timeline-line-glow"></div>
 
-            <!--
-              =============================================================
-              [EDIT TIMELINE DI SINI]:
-              Anda bisa mengubah tanggal, judul, icon, dan keterangan
-              atau menambahkan <div class="timeline-item"> baru di bawahnya.
-              =============================================================
-            -->
-
-            <!-- Timeline Item 1: Our Beginning -->
+            <!-- Item 1: Our Beginning -->
             <div class="timeline-item left">
-              <div class="timeline-dot heartbeat-icon">❤️</div>
-              <div class="timeline-content glass-card">
-                <span class="timeline-date">22 Agustus 2026</span>
+              <div class="timeline-node">
+                <span class="node-icon heartbeat-icon">❤️</span>
+                <span class="node-ring"></span>
+              </div>
+              <div class="timeline-card glass-card">
+                <div class="timeline-badge">22 Agustus 2026</div>
                 <h3 class="timeline-title">Our Beginning</h3>
-                <p class="timeline-desc">“Awal dari cerita kita.” Hari di mana komitmen dan perjalanan indah ini resmi dimulai.</p>
+                <p class="timeline-desc">“Awal dari cerita kita.” Hari resmi ketika dua hati memilih untuk saling melengkapi dan memulai perjalanan cinta yang indah.</p>
               </div>
             </div>
 
-            <!-- Timeline Item 2: First Date -->
+            <!-- Item 2: First Date -->
             <div class="timeline-item right">
-              <div class="timeline-dot">☕</div>
-              <div class="timeline-content glass-card">
-                <span class="timeline-date">Momen Spesial</span>
+              <div class="timeline-node">
+                <span class="node-icon">☕</span>
+                <span class="node-ring"></span>
+              </div>
+              <div class="timeline-card glass-card">
+                <div class="timeline-badge">Momen Spesial</div>
                 <h3 class="timeline-title">First Date</h3>
-                <p class="timeline-desc">Kencan pertama kita yang penuh deg-degan, tawa canggung, dan obrolan manis yang tak terasa hingga larut malam.</p>
+                <p class="timeline-desc">Kencan pertama kita yang penuh senyum canggung, detak jantung yang berdebar cepat, dan obrolan manis yang tak terasa sampai larut malam.</p>
               </div>
             </div>
 
-            <!-- Timeline Item 3: First Trip -->
+            <!-- Item 3: First Trip -->
             <div class="timeline-item left">
-              <div class="timeline-dot">🌅</div>
-              <div class="timeline-content glass-card">
-                <span class="timeline-date">Petualangan Pertama</span>
+              <div class="timeline-node">
+                <span class="node-icon">🌅</span>
+                <span class="node-ring"></span>
+              </div>
+              <div class="timeline-card glass-card">
+                <div class="timeline-badge">Petualangan Pertama</div>
                 <h3 class="timeline-title">First Trip</h3>
-                <p class="timeline-desc">Perjalanan pertama kita melihat tempat baru, menikmati pemandangan senja, dan membuat memori tak terlupakan.</p>
+                <p class="timeline-desc">Menikmati udara baru dan senja bersama. Menggenggam tanganmu di tempat asing membuat semuanya terasa seperti di rumah.</p>
               </div>
             </div>
 
-            <!-- Timeline Item 4: Favorite Memory -->
+            <!-- Item 4: Favorite Memory -->
             <div class="timeline-item right">
-              <div class="timeline-dot">✨</div>
-              <div class="timeline-content glass-card">
-                <span class="timeline-date">Kenangan Terindah</span>
+              <div class="timeline-node">
+                <span class="node-icon">✨</span>
+                <span class="node-ring"></span>
+              </div>
+              <div class="timeline-card glass-card">
+                <div class="timeline-badge">Kenangan Terfavorit</div>
                 <h3 class="timeline-title">Favorite Memory</h3>
-                <p class="timeline-desc">Momen sederhana saat kita saling bercerita, saling menguatkan, dan menyadari betapa berartinya kehadiran satu sama lain.</p>
+                <p class="timeline-desc">Momen sederhana saat kita saling bercerita tentang mimpi, saling mendukung di kala lelah, dan bersyukur atas kehadiran satu sama lain.</p>
               </div>
             </div>
 
-            <!-- Timeline Item 5: Another Chapter -->
+            <!-- Item 5: Another Chapter -->
             <div class="timeline-item left">
-              <div class="timeline-dot">📖</div>
-              <div class="timeline-content glass-card">
-                <span class="timeline-date">Masa Depan</span>
+              <div class="timeline-node">
+                <span class="node-icon">📖</span>
+                <span class="node-ring"></span>
+              </div>
+              <div class="timeline-card glass-card">
+                <div class="timeline-badge">Masa Depan Kita</div>
                 <h3 class="timeline-title">Another Chapter</h3>
-                <p class="timeline-desc">Langkah-langkah baru yang akan terus kita ukir bersama, bergandengan tangan menyongsong hari esok.</p>
+                <p class="timeline-desc">Masih ada ribuan lembaran kosong yang menunggu untuk kita tulis bersama dengan tinta cinta, kesabaran, dan kebahagiaan abadi.</p>
               </div>
             </div>
 
@@ -375,104 +487,119 @@
       </section>
 
       <!-- ==========================================
-           LOVE LETTER (Amplop Digital Interaktif)
+           LOVE LETTER (AMPLOP DIGITAL 3D & WAX SEAL)
            ========================================== -->
       <section id="love-letter" class="section letter-section">
         <div class="container">
           <div class="section-header">
-            <span class="section-num">A LITTLE LETTER FOR YOU</span>
+            <span class="section-tag">A LITTLE LETTER FOR YOU</span>
             <h2 class="section-title">Sepucuk Surat Untukmu</h2>
             <p class="section-subtitle">Ketuk amplop di bawah ini untuk membuka pesan dari lubuk hati terdalam.</p>
-            <div class="section-divider">
-              <span class="line"></span>
-              <span class="heartbeat-icon divider-heart">💌</span>
-              <span class="line"></span>
+            <div class="section-ornament">
+              <span class="ornament-line"></span>
+              <span class="heartbeat-icon ornament-heart">💌</span>
+              <span class="ornament-line"></span>
             </div>
           </div>
 
-          <!-- Interactive Envelope Component -->
-          <div class="envelope-area">
-            <div class="envelope-wrapper" id="envelope-wrapper" role="button" tabindex="0" aria-label="Buka amplop surat cinta">
+          <div class="envelope-scene">
+            <div class="envelope-box" id="envelope-box" role="button" tabindex="0" aria-label="Buka amplop surat cinta">
               
-              <!-- Back Flap -->
-              <div class="envelope-back"></div>
+              <!-- Backplate Amplop -->
+              <div class="env-back"></div>
 
-              <!-- Surat di dalam amplop -->
-              <div class="letter-paper" id="letter-paper">
-                <div class="letter-decor-top">❦</div>
-                
-                <!--
-                  =============================================================
-                  [EDIT DI SINI]: Isi Surat Cinta Anda untuk Pasangan
-                  =============================================================
-                -->
-                <div class="letter-body">
-                  <p class="letter-greeting">Untuk Hanfara,</p>
-                  
-                  <p class="letter-text">
+              <!-- Lembar Surat (Handwritten Aesthetic) -->
+              <div class="env-paper" id="env-paper">
+                <div class="paper-watermark">❦</div>
+
+                <div class="paper-content">
+                  <h3 class="letter-recipient">Untuk Hanfara Lovisya,</h3>
+
+                  <p class="letter-paragraph">
                     Terima kasih sudah menjadi bagian dari cerita ini. Aku tidak tahu seperti apa perjalanan kita ke depan, tapi aku ingin menikmati setiap prosesnya bersamamu.
                   </p>
 
-                  <p class="letter-text">
-                    Semoga kita selalu punya alasan untuk tersenyum, saling mendukung, dan menciptakan banyak kenangan baru.
+                  <p class="letter-paragraph">
+                    Semoga kita selalu punya alasan untuk tersenyum, saling mendukung di kala suka maupun duka, dan terus menciptakan banyak kenangan baru yang tak ternilai harganya.
                   </p>
 
-                  <div class="letter-signature">
-                    <span>Dengan segenap rasa,</span>
-                    <strong class="letter-sender">— Khomarul <span class="heartbeat-icon">❤️</span></strong>
+                  <div class="letter-closing">
+                    <span class="closing-phrase">Dengan segenap cinta,</span>
+                    <strong class="letter-signature-name">— Khomarul Hidayat <span class="heartbeat-icon">❤️</span></strong>
                   </div>
                 </div>
 
-                <div class="letter-decor-bottom">❦</div>
+                <div class="paper-footer-rose">🌸 💖 🌸</div>
               </div>
 
-              <!-- Front Cover & Flap -->
-              <div class="envelope-pocket"></div>
-              <div class="envelope-flap" id="envelope-flap"></div>
+              <!-- Saku Depan Amplop -->
+              <div class="env-pocket"></div>
 
-              <!-- Wax / Heart Seal Stamp -->
-              <div class="envelope-seal" id="envelope-seal">
-                <span class="seal-icon heartbeat-icon">💖</span>
-                <span class="seal-text">Buka Surat</span>
+              <!-- Lipatan Atas (Flap) -->
+              <div class="env-flap" id="env-flap"></div>
+
+              <!-- Segel Lilin Emas/Mawar (Wax Seal) -->
+              <div class="env-wax-seal" id="env-wax-seal">
+                <span class="wax-heart heartbeat-icon">💖</span>
+                <span class="wax-text">Ketuk Disini</span>
               </div>
+
             </div>
 
-            <!-- Petunjuk / Tombol Tutup Kembali -->
-            <div class="envelope-hint">
-              <span id="envelope-status-text">Klik amplop di atas untuk membaca ✨</span>
-              <button id="btn-toggle-letter" class="btn-secondary" style="display:none;">
-                Tutup Kembali Amplop ✉️
+            <!-- Petunjuk & Tombol Tutup -->
+            <div class="envelope-controls">
+              <span id="env-hint" class="envelope-hint">Ketuk amplop di atas untuk membaca surat cinta ✨</span>
+              <button id="btn-close-envelope" class="btn-pill-subtle" style="display:none;">
+                Lipat &amp; Tutup Kembali ✉️
               </button>
             </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================
+           INTERACTIVE: VIRTUAL HUG / SEND LOVE
+           (Fitur Kirim Peluk & Cinta Virtual)
+           ========================================== -->
+      <section class="section hug-section">
+        <div class="container">
+          <div class="hug-card glass-card-premium">
+            <span class="hug-badge">🤗 JARAK BUKAN HALANGAN</span>
+            <h3 class="hug-title">Kirim Peluk Virtual &amp; Cinta</h3>
+            <p class="hug-desc">Sedang rindu atau ingin mengungkapkan rasa sayang? Ketuk tombol di bawah untuk mengirimkan pelukan virtual!</p>
+            
+            <button id="btn-send-hug" class="btn-hug-glow">
+              <span class="hug-icon heartbeat-icon">💖</span>
+              <span class="hug-label">Kirim Pelukan Sayang!</span>
+            </button>
+
+            <div id="hug-counter-text" class="hug-count">Sudah terkirim <strong id="hug-count-num">128</strong> pelukan hangat untuk Hanfara 💕</div>
           </div>
         </div>
       </section>
 
       <!-- ==========================================
-           FINAL SECTION (Closing Romantis)
+           FINAL SECTION (CLOSING ROMANTIS)
            ========================================== -->
       <section id="closing" class="section closing-section">
         <div class="container closing-container">
-          <div class="closing-glow-halo" aria-hidden="true"></div>
+          <div class="closing-halo" aria-hidden="true"></div>
 
           <span class="closing-tag">FOREVER &amp; ALWAYS</span>
 
-          <!--
-            =============================================================
-            [EDIT DI SINI]: Nama Pasangan di Penutup
-            =============================================================
-          -->
           <h2 class="closing-names">
             Khomarul <span class="heartbeat-icon">❤️</span> Hanfara
           </h2>
 
-          <p class="closing-quote">“Our story has just begun.”</p>
+          <p class="closing-quote">“Our story has just begun, and my love for you grows with every sunrise.”</p>
 
-          <!-- Heart Icon Besar yang Berdetak -->
-          <div class="big-heart-wrapper">
-            <div class="heart-pulse-ring ring-1"></div>
-            <div class="heart-pulse-ring ring-2"></div>
-            <div class="big-heart-icon heartbeat-icon">💗</div>
+          <!-- Heart Icon Besar yang Berdetak dengan Cincin Cahaya -->
+          <div class="big-heart-container">
+            <div class="pulsing-halo halo-1"></div>
+            <div class="pulsing-halo halo-2"></div>
+            <div class="pulsing-halo halo-3"></div>
+            <div class="big-heart-symbol heartbeat-icon">💗</div>
           </div>
         </div>
       </section>
@@ -483,68 +610,78 @@
          ========================================== -->
     <footer class="site-footer">
       <div class="container footer-content">
-        <!-- [EDIT DI SINI]: Teks Footer -->
-        <p class="footer-creator">Made with <span class="heartbeat-icon">❤️</span> by Khomarul</p>
+        <p class="footer-creator">Dibuat dengan <span class="heartbeat-icon">❤️</span> oleh Khomarul</p>
         <p class="footer-copy">Khomarul &times; Hanfara &mdash; 2026</p>
-        <p class="footer-motto">Dua hati yang memilih berjalan bersama.</p>
+        <p class="footer-motto">“Dua hati yang memilih melangkah beriringan di bawah luasnya semesta.”</p>
       </div>
     </footer>
 
   </div><!-- /main-wrapper -->
 
   <!-- ==========================================
-       MODAL LIGHTBOX (Pop-up Tampilan Foto Fullscreen)
+       MODAL LIGHTBOX (Pop-up Fullscreen Foto)
        ========================================== -->
-  <div id="lightbox-modal" class="lightbox-modal" aria-hidden="true" role="dialog" aria-label="Pratinjau Foto">
+  <div id="lightbox-modal" class="lightbox-modal" aria-hidden="true" role="dialog" aria-label="Tampilan Foto Penuh">
     <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
     <div class="lightbox-dialog">
-      <button class="lightbox-close" id="lightbox-close" aria-label="Tutup foto">&times;</button>
+      <button class="lightbox-close" id="lightbox-close" aria-label="Tutup pratinjau">&times;</button>
       
-      <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Foto sebelumnya">&#10094;</button>
-      <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Foto selanjutnya">&#10095;</button>
+      <button class="lightbox-arrow lightbox-prev" id="lightbox-prev" aria-label="Foto sebelumnya">&#10094;</button>
+      <button class="lightbox-arrow lightbox-next" id="lightbox-next" aria-label="Foto selanjutnya">&#10095;</button>
 
-      <div class="lightbox-body">
-        <div class="lightbox-img-wrap">
-          <img id="lightbox-img" src="" alt="Foto Kenangan">
+      <div class="lightbox-frame">
+        <div class="lightbox-img-box">
+          <img id="lightbox-img" src="" alt="Kenangan Manis">
         </div>
-        <div class="lightbox-meta">
-          <h3 id="lightbox-caption" class="lightbox-caption"></h3>
-          <p id="lightbox-sub" class="lightbox-sub"></p>
-          <span id="lightbox-counter" class="lightbox-counter">1 / 6</span>
+        <div class="lightbox-info">
+          <div class="lightbox-texts">
+            <h3 id="lightbox-caption" class="lightbox-title"></h3>
+            <p id="lightbox-sub" class="lightbox-subtitle"></p>
+          </div>
+          <span id="lightbox-counter" class="lightbox-badge">1 / 6</span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ==========================================
-       FLOATING MUSIC PLAYER (Pojok Kanan Bawah)
+       FLOATING MUSIC PLAYER (VINYL & EQUALIZER EDITION)
        ========================================== -->
   <div id="music-player-widget" class="floating-music-widget">
-    <!-- Elemen Audio HTML5 -->
-    <!--
-      [EDIT DI SINI]: File musik romantis Anda.
-      Simpan lagu Anda di folder: music/our-song.mp3
-    -->
+    <!-- Elemen Audio HTML5 dengan lagu Perfect -->
     <audio id="bg-audio" preload="auto" loop>
       <source src="music/perfect.mp3" type="audio/mpeg">
+      <source src="music/our-song.mp3" type="audio/mpeg">
       Browser Anda tidak mendukung pemutar audio.
     </audio>
 
-    <div class="music-pill glass-card" id="music-pill">
-      <!-- Disc Icon -->
-      <div class="music-disc" id="music-disc">
-        <span class="disc-icon">🎵</span>
+    <div class="music-mini-player glass-card" id="music-pill">
+      <!-- Vinyl Disc Animasi -->
+      <div class="vinyl-disc" id="music-disc">
+        <div class="vinyl-groove"></div>
+        <div class="vinyl-center">
+          <span class="vinyl-heart">❤️</span>
+        </div>
       </div>
 
-      <!-- Info Lagu -->
-      <div class="music-info">
-        <span class="music-status" id="music-status">Memutar Musik</span>
-        <!-- [EDIT DI SINI]: Judul Lagu Favorit Kalian -->
-        <span class="music-title" id="music-title">Khomarul &amp; Hanfara — Our Song</span>
+      <!-- Informasi Lagu & Visualizer Soundwave -->
+      <div class="music-meta">
+        <div class="music-header-row">
+          <span class="music-status-tag" id="music-status">Memutar Lagu</span>
+          <!-- Soundwave Bars -->
+          <div class="soundwave-bars" id="soundwave-bars">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+            <span class="bar bar-4"></span>
+          </div>
+        </div>
+        <!-- [EDIT DI SINI]: Nama Lagu -->
+        <span class="music-track-name" id="music-title">Ed Sheeran — Perfect</span>
       </div>
 
       <!-- Tombol Play / Pause -->
-      <button id="btn-music-toggle" class="btn-music-action" aria-label="Putar atau jeda musik">
+      <button id="btn-music-toggle" class="btn-play-toggle" aria-label="Putar atau jeda musik">
         <span id="music-btn-icon">▶</span>
       </button>
     </div>

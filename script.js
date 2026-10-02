@@ -1,84 +1,137 @@
 /**
  * ==========================================================================
- * KHOMARUL & HANFARA — ROMANTIC COUPLE WEBSITE
- * script.js — Interaktivitas, Animasi & Logika Realtime
+ * KHOMARUL & HANFARA — OUR ETERNAL UNIVERSE
+ * script.js — Interaktivitas Premium, Shooting Stars & Logika Realtime
  * ==========================================================================
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ==========================================================================
-     KONFIGURASI UTAMA [EDIT DI SINI DENGAN MUDAH]
+     KONFIGURASI UTAMA
      ========================================================================== */
   const CONFIG = {
-    // Tanggal jadian / awal cerita: 22 Agustus 2026 (Format: Tahun, Bulan [0-11], Tanggal, Jam, Menit, Detik)
-    // Catatan: Bulan Agustus = index 7 (Januari=0, Februari=1, ..., Agustus=7)
+    // Tanggal jadian: 22 Agustus 2026
     startDate: new Date(2026, 7, 22, 0, 0, 0),
 
     // Nama Pasangan
     groomName: "Khomarul Hidayat",
     brideName: "Hanfara Lovisya",
 
-    // Informasi Lagu
-    songTitle: "Khomarul & Hanfara — Our Song",
-
-    // Pengaturan Animasi
-    starCount: 130, // Jumlah bintang di langit malam
-    heartIntervalMs: 2200 // Jarak kemunculan hati melayang (milidetik)
+    // Konfigurasi Bintang & Meteor
+    starCount: 160,
+    shootingStarIntervalMs: 3800,
+    heartIntervalMs: 2000
   };
 
   /* ==========================================================================
-     1. BACKGROUND STARS & DUST CANVAS (Bintang Berkedip Random)
+     1. COSMIC STARRY SKY & SHOOTING STARS (METEOR JATUH)
      ========================================================================== */
   const canvas = document.getElementById('stars-canvas');
   const ctx = canvas ? canvas.getContext('2d') : null;
   let stars = [];
+  let shootingStars = [];
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
 
   function initStars() {
     stars = [];
-    const count = window.innerWidth < 768 ? Math.floor(CONFIG.starCount * 0.6) : CONFIG.starCount;
+    const count = window.innerWidth < 768 ? Math.floor(CONFIG.starCount * 0.55) : CONFIG.starCount;
     for (let i = 0; i < count; i++) {
       stars.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        radius: Math.random() * 1.5 + 0.3,
+        radius: Math.random() * 1.6 + 0.3,
         alpha: Math.random(),
         speed: Math.random() * 0.015 + 0.005,
         twinkleFactor: Math.random() * 0.03 + 0.01,
         increasing: Math.random() > 0.5,
-        color: Math.random() > 0.3 ? '#ffffff' : '#ffd1dc' // Kombinasi putih dan pink muda
+        color: Math.random() > 0.25 ? '#ffffff' : '#ffd1dc'
       });
     }
   }
 
-  function drawStars() {
+  // Membuat Shooting Star (Meteor)
+  function createShootingStar() {
+    if (shootingStars.length > 2) return;
+    const startX = Math.random() * width * 0.8 + width * 0.1;
+    const startY = Math.random() * height * 0.3;
+    const length = Math.random() * 90 + 70;
+    const speed = Math.random() * 6 + 7;
+    const angle = (Math.PI / 4) + (Math.random() * 0.2 - 0.1); // Diagonally downward
+
+    shootingStars.push({
+      x: startX,
+      y: startY,
+      len: length,
+      speed: speed,
+      dx: Math.cos(angle) * speed,
+      dy: Math.sin(angle) * speed,
+      alpha: 1.0,
+      life: 0,
+      maxLife: 45
+    });
+  }
+
+  setInterval(createShootingStar, CONFIG.shootingStarIntervalMs);
+
+  function drawCosmos() {
     if (!ctx) return;
     ctx.clearRect(0, 0, width, height);
 
+    // 1. Gambar Bintang Berkedip
     stars.forEach(star => {
-      // Logika kelap-kelip lembut
       if (star.increasing) {
         star.alpha += star.twinkleFactor;
         if (star.alpha >= 1) star.increasing = false;
       } else {
         star.alpha -= star.twinkleFactor;
-        if (star.alpha <= 0.15) star.increasing = true;
+        if (star.alpha <= 0.12) star.increasing = true;
       }
 
       ctx.beginPath();
       ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
       ctx.fillStyle = star.color;
       ctx.globalAlpha = star.alpha;
-      ctx.shadowBlur = star.radius * 4;
-      ctx.shadowColor = 'rgba(255, 182, 193, 0.8)';
+      ctx.shadowBlur = star.radius * 3.5;
+      ctx.shadowColor = 'rgba(255, 182, 193, 0.7)';
       ctx.fill();
     });
 
+    // 2. Gambar Shooting Stars (Meteor Luminous)
+    for (let i = shootingStars.length - 1; i >= 0; i--) {
+      const s = shootingStars[i];
+      s.x += s.dx;
+      s.y += s.dy;
+      s.life++;
+      s.alpha = Math.max(0, 1 - (s.life / s.maxLife));
+
+      // Gradien ekor meteor
+      const tailX = s.x - (s.dx * (s.len / s.speed));
+      const tailY = s.y - (s.dy * (s.len / s.speed));
+
+      const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
+      grad.addColorStop(0, 'rgba(255, 117, 143, 0)');
+      grad.addColorStop(0.7, `rgba(255, 182, 193, ${s.alpha * 0.6})`);
+      grad.addColorStop(1, `rgba(255, 255, 255, ${s.alpha})`);
+
+      ctx.beginPath();
+      ctx.moveTo(tailX, tailY);
+      ctx.lineTo(s.x, s.y);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 2.2;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = '#fff';
+      ctx.stroke();
+
+      if (s.life >= s.maxLife || s.x > width || s.y > height) {
+        shootingStars.splice(i, 1);
+      }
+    }
+
     ctx.globalAlpha = 1.0;
     ctx.shadowBlur = 0;
-    requestAnimationFrame(drawStars);
+    requestAnimationFrame(drawCosmos);
   }
 
   window.addEventListener('resize', () => {
@@ -90,11 +143,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (canvas) {
     initStars();
-    drawStars();
+    drawCosmos();
   }
 
   /* ==========================================================================
-     2. FLOATING HEARTS (Hati Kecil Melayang dari Bawah ke Atas)
+     2. CURSOR STARLIGHT GLOW (DESKTOP)
+     ========================================================================== */
+  const cursorGlow = document.getElementById('cursor-glow');
+  if (cursorGlow && window.innerWidth > 992) {
+    document.addEventListener('mousemove', (e) => {
+      cursorGlow.style.opacity = '1';
+      cursorGlow.style.left = `${e.clientX}px`;
+      cursorGlow.style.top = `${e.clientY}px`;
+    });
+    document.addEventListener('mouseleave', () => {
+      cursorGlow.style.opacity = '0';
+    });
+  }
+
+  /* ==========================================================================
+     3. FLOATING AMBIENT HEARTS & TAP HEARTS
      ========================================================================== */
   const heartsContainer = document.getElementById('floating-hearts-container');
   const heartIcons = ['❤️', '💖', '💕', '💗', '🌸', '✨'];
@@ -105,10 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
     heart.className = 'floating-heart-particle';
     heart.textContent = heartIcons[Math.floor(Math.random() * heartIcons.length)];
 
-    // Acak posisi horizontal, ukuran, dan durasi terbang
     const leftPos = Math.random() * 100;
-    const fontSize = Math.random() * 14 + 14; // 14px - 28px
-    const duration = Math.random() * 6 + 7;   // 7s - 13s
+    const fontSize = Math.random() * 14 + 14;
+    const duration = Math.random() * 6 + 7;
 
     heart.style.left = `${leftPos}vw`;
     heart.style.fontSize = `${fontSize}px`;
@@ -116,18 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     heartsContainer.appendChild(heart);
 
-    // Hapus elemen setelah animasi selesai agar memori tetap ringan
-    setTimeout(() => {
-      heart.remove();
-    }, duration * 1000);
+    setTimeout(() => heart.remove(), duration * 1000);
   }
 
   setInterval(createFloatingHeart, CONFIG.heartIntervalMs);
 
-  /* Efek Klik Muncul Hati (Interactive Tap Heart) */
+  // Efek Ketuk Layar (Tap/Click Hearts Burst)
   document.addEventListener('click', (e) => {
-    // Jangan muncul jika klik tombol play musik atau tutup modal
-    if (e.target.closest('#music-player-widget') || e.target.closest('.lightbox-close')) return;
+    if (e.target.closest('#music-player-widget') || e.target.closest('.lightbox-close') || e.target.closest('.btn-like-photo')) return;
 
     const heart = document.createElement('div');
     heart.className = 'click-heart';
@@ -136,11 +199,11 @@ document.addEventListener('DOMContentLoaded', () => {
     heart.style.top = `${e.clientY}px`;
     document.body.appendChild(heart);
 
-    setTimeout(() => heart.remove(), 900);
+    setTimeout(() => heart.remove(), 850);
   });
 
   /* ==========================================================================
-     3. OPENING SCREEN & ENTRY INTERACTION
+     4. OPENING SCREEN & ENTRY ANIMATION
      ========================================================================== */
   const openingScreen = document.getElementById('opening-screen');
   const btnEnter = document.getElementById('btn-enter');
@@ -148,21 +211,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnEnter && openingScreen) {
     btnEnter.addEventListener('click', () => {
-      // Efek ledakan partikel cinta kecil
-      for (let i = 0; i < 18; i++) {
-        setTimeout(createFloatingHeart, i * 80);
+      // Ledakan 20 hati kecil saat tombol diklik
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createFloatingHeart, i * 60);
       }
 
-      // Animasi transisi membuka halaman utama
       openingScreen.classList.add('fade-out');
       if (mainWrapper) {
         mainWrapper.classList.remove('is-locked');
       }
 
-      // Mainkan musik otomatis setelah interaksi klik
       playAudio();
 
-      // Hapus opening screen dari DOM setelah animasi selesai
       setTimeout(() => {
         openingScreen.style.display = 'none';
       }, 1200);
@@ -170,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     4. RELATIONSHIP COUNTER (Menghitung Waktu Hubungan Realtime)
+     5. LIVE RELATIONSHIP COUNTER
      ========================================================================== */
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
@@ -181,9 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const now = new Date();
     let diff = now.getTime() - CONFIG.startDate.getTime();
 
-    // Jika waktu masih sebelum tanggal mulai (misal testing di masa depan)
     if (diff < 0) {
-      diff = Math.abs(diff); // Tampilkan countdown positif
+      diff = Math.abs(diff);
     }
 
     const seconds = Math.floor((diff / 1000) % 60);
@@ -201,7 +260,43 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateRelationshipCounter, 1000);
 
   /* ==========================================================================
-     5. GALLERY & FULLSCREEN LIGHTBOX
+     6. REASONS WHY I LOVE YOU GENERATOR (INTERAKTIF)
+     ========================================================================== */
+  const reasonsList = [
+    "Senyuman manismu selalu berhasil membuat hari yang lelah terasa tenang dan penuh harapan.",
+    "Caramu mendengarkan ceritaku dengan penuh perhatian tanpa pernah menghakimi.",
+    "Tawamu yang begitu lepas, melodi paling indah yang selalu ingin aku dengar setiap hari.",
+    "Kebaikan hatimu dan ketulusanmu yang membuatku selalu ingin menjadi pribadi yang lebih baik.",
+    "Binar matamu saat menceritakan hal-hal yang kamu sukai dengan penuh semangat.",
+    "Cara kita saling menguatkan di saat salah satu dari kita sedang merasa rapuh.",
+    "Kehangatan pelukan dan genggaman tanganmu yang membuat dunia terasa aman.",
+    "Setiap candaan konyol kita yang hanya bisa dipahami oleh kita berdua.",
+    "Kesabaranmu yang luar biasa dan caramu selalu menenangkan hatiku.",
+    "Karena bersamamu, aku merasa pulang dan menemukan rumah ternyaman di dunia."
+  ];
+
+  const reasonsText = document.getElementById('reasons-text');
+  const reasonsNumber = document.getElementById('reasons-number');
+  const btnNextReason = document.getElementById('btn-next-reason');
+  let currentReasonIndex = 0;
+
+  if (btnNextReason && reasonsText && reasonsNumber) {
+    btnNextReason.addEventListener('click', () => {
+      reasonsText.style.opacity = '0';
+      reasonsNumber.style.opacity = '0';
+
+      setTimeout(() => {
+        currentReasonIndex = (currentReasonIndex + 1) % reasonsList.length;
+        reasonsText.textContent = `“${reasonsList[currentReasonIndex]}”`;
+        reasonsNumber.textContent = `Alasan #${currentReasonIndex + 1}`;
+        reasonsText.style.opacity = '1';
+        reasonsNumber.style.opacity = '1';
+      }, 300);
+    });
+  }
+
+  /* ==========================================================================
+     7. GALLERY LIGHTBOX & INTERACTIVE LIKE BUTTONS
      ========================================================================== */
   const galleryCards = document.querySelectorAll('.gallery-card');
   const lightboxModal = document.getElementById('lightbox-modal');
@@ -217,9 +312,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentGalleryIndex = 0;
   const galleryData = [];
 
-  // Kumpulkan data gambar dan caption
   galleryCards.forEach((card, idx) => {
     const imgEl = card.querySelector('img');
+    const likeBtn = card.querySelector('.btn-like-photo');
+    const likeCountSpan = card.querySelector('.like-count');
+    const likeHeartSpan = card.querySelector('.like-heart');
+
     galleryData.push({
       src: imgEl ? imgEl.src : '',
       alt: imgEl ? imgEl.alt : '',
@@ -227,9 +325,50 @@ document.addEventListener('DOMContentLoaded', () => {
       sub: card.getAttribute('data-sub') || ''
     });
 
-    card.addEventListener('click', () => {
+    // Buka Lightbox saat gambar/kartu diklik
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.btn-like-photo')) return;
       openLightbox(idx);
     });
+
+    // Like Button Interaction
+    if (likeBtn) {
+      let isLiked = false;
+      let count = 1;
+      likeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isLiked = !isLiked;
+        if (isLiked) {
+          count++;
+          likeBtn.classList.add('is-liked');
+          likeHeartSpan.textContent = '💖';
+          createFloatingHeart();
+        } else {
+          count--;
+          likeBtn.classList.remove('is-liked');
+          likeHeartSpan.textContent = '🤍';
+        }
+        likeCountSpan.textContent = count;
+      });
+    }
+
+    // 3D Card Tilt pada Desktop
+    if (window.innerWidth > 992) {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6;
+        const rotateY = ((x - centerX) / centerX) * 6;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    }
   });
 
   function openLightbox(index) {
@@ -237,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentGalleryIndex = index;
     updateLightboxContent();
     lightboxModal.classList.add('is-active');
-    document.body.style.overflow = 'hidden'; // Kunci scroll halaman belakang
+    document.body.style.overflow = 'hidden';
   }
 
   function closeLightbox() {
@@ -274,7 +413,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (lightboxPrev) lightboxPrev.addEventListener('click', showPrevImage);
   if (lightboxNext) lightboxNext.addEventListener('click', showNextImage);
 
-  // Navigasi Keyboard (ESC untuk tutup, Panah Kiri/Kanan)
   document.addEventListener('keydown', (e) => {
     if (!lightboxModal || !lightboxModal.classList.contains('is-active')) return;
     if (e.key === 'Escape') closeLightbox();
@@ -283,28 +421,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     6. LOVE LETTER (Amplop Digital Interaktif)
+     8. LOVE LETTER (AMPLOP 3D & WAX SEAL)
      ========================================================================== */
-  const envelopeWrapper = document.getElementById('envelope-wrapper');
-  const btnToggleLetter = document.getElementById('btn-toggle-letter');
-  const envelopeStatusText = document.getElementById('envelope-status-text');
+  const envelopeBox = document.getElementById('envelope-box');
+  const btnCloseEnvelope = document.getElementById('btn-close-envelope');
+  const envHint = document.getElementById('env-hint');
 
   function toggleEnvelope() {
-    if (!envelopeWrapper) return;
-    const isOpen = envelopeWrapper.classList.toggle('is-open');
+    if (!envelopeBox) return;
+    const isOpen = envelopeBox.classList.toggle('is-open');
 
     if (isOpen) {
-      if (envelopeStatusText) envelopeStatusText.textContent = "Surat telah dibuka dengan penuh cinta 💌";
-      if (btnToggleLetter) btnToggleLetter.style.display = 'inline-block';
+      if (envHint) envHint.textContent = "Surat telah terbuka dengan segenap cinta 💌";
+      if (btnCloseEnvelope) btnCloseEnvelope.style.display = 'inline-block';
+      // Burst sparkling hearts
+      for (let i = 0; i < 8; i++) setTimeout(createFloatingHeart, i * 90);
     } else {
-      if (envelopeStatusText) envelopeStatusText.textContent = "Klik amplop di atas untuk membaca ✨";
-      if (btnToggleLetter) btnToggleLetter.style.display = 'none';
+      if (envHint) envHint.textContent = "Ketuk amplop di atas untuk membaca surat cinta ✨";
+      if (btnCloseEnvelope) btnCloseEnvelope.style.display = 'none';
     }
   }
 
-  if (envelopeWrapper) {
-    envelopeWrapper.addEventListener('click', toggleEnvelope);
-    envelopeWrapper.addEventListener('keydown', (e) => {
+  if (envelopeBox) {
+    envelopeBox.addEventListener('click', toggleEnvelope);
+    envelopeBox.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         toggleEnvelope();
@@ -312,21 +452,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (btnToggleLetter) {
-    btnToggleLetter.addEventListener('click', (e) => {
+  if (btnCloseEnvelope) {
+    btnCloseEnvelope.addEventListener('click', (e) => {
       e.stopPropagation();
       toggleEnvelope();
     });
   }
 
   /* ==========================================================================
-     7. MUSIC PLAYER & WEB AUDIO FALLBACK (Memutar Musik Romantis)
+     9. VIRTUAL HUG / SEND LOVE INTERACTION
+     ========================================================================== */
+  const btnSendHug = document.getElementById('btn-send-hug');
+  const hugCountNum = document.getElementById('hug-count-num');
+  let hugCount = 128;
+
+  if (btnSendHug && hugCountNum) {
+    btnSendHug.addEventListener('click', (e) => {
+      hugCount++;
+      hugCountNum.textContent = hugCount;
+
+      // Burst efek cinta di layar
+      for (let i = 0; i < 15; i++) {
+        setTimeout(createFloatingHeart, i * 70);
+      }
+
+      // Animasi tombol pop
+      btnSendHug.style.transform = 'scale(0.92)';
+      setTimeout(() => {
+        btnSendHug.style.transform = 'scale(1)';
+      }, 180);
+    });
+  }
+
+  /* ==========================================================================
+     10. MUSIC PLAYER CONTROLLER & VISUALIZER
      ========================================================================== */
   const audio = document.getElementById('bg-audio');
   const btnMusicToggle = document.getElementById('btn-music-toggle');
+  const heroMusicBtn = document.getElementById('hero-music-btn');
+  const heroMusicText = document.getElementById('hero-music-text');
   const musicBtnIcon = document.getElementById('music-btn-icon');
   const musicDisc = document.getElementById('music-disc');
   const musicStatus = document.getElementById('music-status');
+  const soundwaveBars = document.getElementById('soundwave-bars');
   let isPlaying = false;
 
   function updateMusicUI(playing) {
@@ -334,17 +502,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (playing) {
       if (musicBtnIcon) musicBtnIcon.textContent = '⏸';
       if (musicDisc) musicDisc.classList.add('is-spinning');
-      if (musicStatus) musicStatus.textContent = 'Memutar Musik';
+      if (musicStatus) musicStatus.textContent = 'Memutar Lagu';
+      if (soundwaveBars) soundwaveBars.classList.add('is-active');
+      if (heroMusicText) heroMusicText.textContent = 'Jeda Lagu';
     } else {
       if (musicBtnIcon) musicBtnIcon.textContent = '▶';
       if (musicDisc) musicDisc.classList.remove('is-spinning');
       if (musicStatus) musicStatus.textContent = 'Musik Dijeda';
+      if (soundwaveBars) soundwaveBars.classList.remove('is-active');
+      if (heroMusicText) heroMusicText.textContent = 'Putar Lagu Kita';
     }
   }
 
   function playAudio() {
     if (!audio) return;
-    audio.volume = 0.8;
+    audio.volume = 0.85;
     const playPromise = audio.play();
     if (playPromise !== undefined) {
       playPromise
@@ -352,7 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
           updateMusicUI(true);
         })
         .catch((err) => {
-          console.warn("Autoplay audio browser memerlukan interaksi pengguna:", err);
+          console.warn("Autoplay browser diblokir sebelum interaksi:", err);
           updateMusicUI(false);
         });
     }
@@ -375,11 +547,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (heroMusicBtn) {
+    heroMusicBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (isPlaying) {
+        pauseAudio();
+      } else {
+        playAudio();
+      }
+    });
+  }
+
   /* ==========================================================================
-     8. SCROLL REVEAL (Animasi Elemen Saat di-Scroll)
+     11. SCROLL REVEAL (INTERSECTION OBSERVER)
      ========================================================================== */
   const revealElements = document.querySelectorAll(
-    '.story-card, .counter-item, .gallery-card, .timeline-item, .envelope-wrapper, .closing-container'
+    '.story-card, .counter-card, .gallery-card, .timeline-item, .envelope-box, .hug-card, .closing-container'
   );
 
   revealElements.forEach(el => el.classList.add('fade-in-element'));
@@ -391,8 +574,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.12,
+    rootMargin: '0px 0px -30px 0px'
   });
 
   revealElements.forEach(el => observer.observe(el));
